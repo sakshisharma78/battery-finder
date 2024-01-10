@@ -1,0 +1,114 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8" />  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    <title>Javascript Battery Percentage </title> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+        }
+
+        .battery {
+            font-size: 2rem;
+            color: lightsalmon;
+        }
+
+        main {
+            text-align: center;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .custom-message {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            z-index: 1000;
+            display: none;
+        }
+
+        .custom-message.show {
+            display: block;
+        }
+    </style>
+</head>  
+<body>  
+    <main> 
+        <div class="battery">  
+            <img src="images/battery_icon.jpeg" alt="Battery Icon">
+        </div> 
+        <h1>Your battery Percentage is</h1>  
+        <div class="battry"></div>  
+        <p>Try it for once, I hope you like it.</p>  
+    </main> 
+    <footer>
+        <p>&copy; 2024 all right reserved.
+            <a href="https://www.linkedin.com/in/sakshi-sharma-a6a122271?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+                sakshi sharma
+            </a>
+        </p>
+    </footer> 
+    <div class="custom-message alert mt-3 text-center alert-danger" role="alert">
+        Battery level is low. charge karle bhai.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="custom-message alert mt-3 text-center alert-warning" role="alert">
+        Battery level is fine. chill dude.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="custom-message alert mt-3 text-center alert-success" role="alert">
+        Battery level is full. bindass chala dude.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <script>  
+        const batteryLevel = document.querySelector(".battry");  
+        const lowBatteryMessage = document.querySelector(".custom-message.alert-danger");
+        const normalBatteryMessage = document.querySelector(".custom-message.alert-warning");
+        const fullBatteryMessage = document.querySelector(".custom-message.alert-success");
+
+        navigator.getBattery().then(function (battery) {  
+            const level = battery.level;  
+            const status = (level * 100).toFixed(2) + "%";  
+            batteryLevel.innerHTML = status; 
+
+            if (level * 100 < 30) {
+                lowBatteryMessage.classList.add("show");
+            } else if (level * 100 < 80) {
+                normalBatteryMessage.classList.add("show");
+            } else if (level * 100 == 100) {
+                fullBatteryMessage.classList.add("show");
+            }
+        });  
+    </script>
+   
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
